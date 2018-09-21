@@ -187,15 +187,32 @@ void convexHull(Point points[], int n)
    while (!isEmpty(stack)) 
    { 
        Point p = top(stack);
-       printf("%d, %d\n", p.x, p.y);  
+       printf("(%d, %d)\n", p.x, p.y);  
        pop(stack); 
    } 
 } 
 
 int main() 
 { 
-    Point points[] = {{0, 3}, {1, 1}, {2, 2}, {4, 4}, 
-                      {0, 0}, {1, 2}, {3, 1}, {3, 3}}; 
+    // Point points[] = {{0, 3}, {1, 1}, {2, 2}, {4, 4}, 
+    //                   {0, 0}, {1, 2}, {3, 1}, {3, 3}};
+    
+    Point points[100000];
+    int i;
+    for (i =0; i < 100000; i++) {
+        Point p;
+        if (i == 0) {
+            p.x = 0;
+            p.y = 0;
+            points[i] = p;
+        } else {
+            p.x = i;
+            p.y = i + 1;
+            points[i] = p;
+        }
+        printf("x: %d, y: %d\n", p.x, p.y);
+    }
+
     int n = sizeof(points)/sizeof(points[0]); 
     convexHull(points, n); 
     return 0; 
