@@ -1,221 +1,240 @@
+// C program for array implementation of stack
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
 
-// C program for array implementation of stack 
-#include <stdio.h> 
-#include <stdlib.h> 
-#include <limits.h> 
-  
-struct point {
-    int x, y;
+struct point
+{
+    float x, y;
 };
 typedef struct point Point;
 
-// A globle point needed for  sorting points with reference 
-// to  the first point Used in compare function of qsort() 
-Point p0; 
+// Um ponto global para ordenar pontos com referência ao primeiro ponto usado na função compare do qsort()
+Point p0;
 
-// A structure to represent a stack 
-struct Stack 
-{ 
-    int top; 
-    unsigned capacity; 
-    Point* array; 
-}; 
+// Uma struct para representar a stack
+struct Stack
+{
+    int top;
+    unsigned capacity;
+    Point *array;
+};
 typedef struct Stack Stack;
 
-// function to create a stack of given capacity. It initializes size of 
-// stack as 0 
-struct Stack* createStack(unsigned capacity) 
-{ 
-    struct Stack* stack = (struct Stack*) malloc(sizeof(struct Stack)); 
-    stack->capacity = capacity; 
-    stack->top = -1; 
-    stack->array = (Point*) malloc(stack->capacity * sizeof(int)); 
-    return stack; 
-} 
-  
-// Stack is full when top is equal to the last index 
-int isFull(struct Stack* stack) 
-{   return stack->top == stack->capacity - 1; } 
-  
-// Stack is empty when top is equal to -1 
-int isEmpty(struct Stack* stack) 
-{   return stack->top == -1;  } 
-  
-// Function to add an item to stack.  It increases top by 1 
-void push(struct Stack* stack, Point item) 
-{ 
-    if (isFull(stack)) 
-        return; 
-    stack->array[++stack->top] = item; 
-} 
-  
-// Function to remove an item from stack.  It decreases top by 1 
-Point pop(struct Stack* stack) 
-{ 
-    if (!isEmpty(stack)) 
-        return stack->array[stack->top--]; 
-} 
-
-// Function to get top element from stack.
-Point top(struct Stack* stack) {
-    if (!isEmpty(stack)) 
-        return stack->array[stack->top]; 
+// Função para criar uma stack dado um tamanho. Inicializa-se com uma stack de tamanho 0
+struct Stack *createStack(unsigned capacity)
+{
+    struct Stack *stack = (struct Stack *)malloc(sizeof(struct Stack));
+    stack->capacity = capacity;
+    stack->top = -1;
+    stack->array = (Point *)malloc(stack->capacity * sizeof(int));
+    return stack;
 }
 
-Point nextToTop(Stack *S) 
-{ 
-    Point p = top(S); 
-    pop(S); 
-    Point res = top(S); 
-    push(S, p); 
-    return res; 
-} 
+// Stack está cheia quando top for igual ao último index
+int isFull(struct Stack *stack)
+{
+    return stack->top == stack->capacity - 1;
+}
 
-// A utility function to swap two points 
-int swap(Point *p1, Point *p2) 
-{ 
-    Point temp = *p1; 
-    *p1 = *p2; 
-    *p2 = temp; 
-} 
+// Stack está vazia quando top for igual a -1
+int isEmpty(struct Stack *stack)
+{
+    return stack->top == -1;
+}
 
-// A utility function to return square of distance 
-// between p1 and p2 
-int distSq(Point p1, Point p2) 
-{ 
-    return (p1.x - p2.x)*(p1.x - p2.x) + 
-          (p1.y - p2.y)*(p1.y - p2.y); 
-} 
-  
-// To find orientation of ordered triplet (p, q, r). 
-// The function returns following values 
-// 0 --> p, q and r are colinear 
-// 1 --> Clockwise 
-// 2 --> Counterclockwise 
-int orientation(Point p, Point q, Point r) 
-{ 
-    int val = (q.y - p.y) * (r.x - q.x) - 
-              (q.x - p.x) * (r.y - q.y); 
-  
-    if (val == 0) return 0;  // colinear 
-    return (val > 0)? 1: 2; // clock or counterclock wise 
-} 
-  
-// A function used by library function qsort() to sort an array of 
-// points with respect to the first point 
-int compare(const void *vp1, const void *vp2) 
-{ 
-   Point *p1 = (Point *)vp1; 
-   Point *p2 = (Point *)vp2; 
-  
-   // Find orientation 
-   int o = orientation(p0, *p1, *p2); 
-   if (o == 0) 
-     return (distSq(p0, *p2) >= distSq(p0, *p1))? -1 : 1; 
-  
-   return (o == 2)? -1: 1; 
-} 
+// Função para adicionar um item à stack. Incrementa top em 1
+void push(struct Stack *stack, Point item)
+{
+    if (isFull(stack))
+        return;
+    stack->array[++stack->top] = item;
+}
 
-// Prints convex hull of a set of n points. 
-void convexHull(Point points[], int n) 
-{ 
-   // Find the bottommost point 
-   int ymin = points[0].y, min = 0; 
-   for (int i = 1; i < n; i++) 
-   { 
-     int y = points[i].y; 
-  
-     // Pick the bottom-most or chose the left 
-     // most point in case of tie 
-     if ((y < ymin) || (ymin == y && 
-         points[i].x < points[min].x)) 
-        ymin = points[i].y, min = i; 
-   } 
-  
-   // Place the bottom-most point at first position 
-   swap(&points[0], &points[min]); 
-  
-   // Sort n-1 points with respect to the first point. 
-   // A point p1 comes before p2 in sorted ouput if p2 
-   // has larger polar angle (in counterclockwise 
-   // direction) than p1 
-   p0 = points[0]; 
-   qsort(&points[1], n-1, sizeof(Point), compare); 
-  
-   // If two or more points make same angle with p0, 
-   // Remove all but the one that is farthest from p0 
-   // Remember that, in above sorting, our criteria was 
-   // to keep the farthest point at the end when more than 
-   // one points have same angle. 
-   int m = 1; // Initialize size of modified array 
-   for (int i=1; i<n; i++) 
-   { 
-       // Keep removing i while angle of i and i+1 is same 
-       // with respect to p0 
-       while (i < n-1 && orientation(p0, points[i], 
-                                    points[i+1]) == 0) 
-          i++; 
-  
-  
-       points[m] = points[i]; 
-       m++;  // Update size of modified array 
-   } 
-  
-   // If modified array of points has less than 3 points, 
-   // convex hull is not possible 
-   if (m < 3) return; 
-  
-   // Create an empty stack and push first three points 
-   // to it. 
-   struct Stack* stack = createStack(100);
-   push(stack, points[0]); 
-   push(stack, points[1]);
-   push(stack, points[2]); 
-  
-   // Process remaining n-3 points 
-   for (int i = 3; i < m; i++) 
-   { 
-      // Keep removing top while the angle formed by 
-      // points next-to-top, top, and points[i] makes 
-      // a non-left turn 
-      while (orientation(nextToTop(stack), top(stack), points[i]) != 2) 
-         pop(stack); 
-      push(stack, points[i]); 
-   } 
-  
-   // Now stack has the output points, print contents of stack 
-   while (!isEmpty(stack)) 
-   { 
-       Point p = top(stack);
-       printf("(%d, %d)\n", p.x, p.y);  
-       pop(stack); 
-   } 
-} 
+// Função para remover um item da stack. Decrementa top em 1
+Point pop(struct Stack *stack)
+{
+    if (!isEmpty(stack))
+        return stack->array[stack->top--];
+}
 
-int main() 
-{ 
-    // Point points[] = {{0, 3}, {1, 1}, {2, 2}, {4, 4}, 
-    //                   {0, 0}, {1, 2}, {3, 1}, {3, 3}};
+// Função para pegar o elemento do top da stack
+Point top(struct Stack *stack)
+{
+    if (!isEmpty(stack))
+        return stack->array[stack->top];
+}
+
+Point nextToTop(Stack *S)
+{
+    Point p = top(S);
+    pop(S);
+    Point res = top(S);
+    push(S, p);
+    return res;
+}
+
+// Função para realizar o swap entre dois pontos
+int swap(Point *p1, Point *p2)
+{
+    Point temp = *p1;
+    *p1 = *p2;
+    *p2 = temp;
+}
+
+// Função para retornar o quadrado da distância entre dois pontos p1 e p2
+int distSq(Point p1, Point p2)
+{
+    return (p1.x - p2.x) * (p1.x - p2.x) +
+           (p1.y - p2.y) * (p1.y - p2.y);
+}
+
+// Para achar a orientação do grupo de três pontos (p, q, r)
+// A função retornar os seguintes valores
+// 0 --> p, q e r são colineares (colinear)
+// 1 --> Sentido horário (clockwise)
+// 2 --> Sentido anti-horário (counterclockwise)
+int orientation(Point p, Point q, Point r)
+{
+    int val = (q.y - p.y) * (r.x - q.x) -
+              (q.x - p.x) * (r.y - q.y);
+
+    if (val == 0)
+        return 0;             // colinear
+    return (val > 0) ? 1 : 2; // horário ou anti-horário
+}
+
+// Uma função usada pela função de biblioteca qsort() para ordenar
+// os pontos com relação ao primeiro ponto
+int compare(const void *vp1, const void *vp2)
+{
+    Point *p1 = (Point *)vp1;
+    Point *p2 = (Point *)vp2;
+
+    // Achar orientação
+    int o = orientation(p0, *p1, *p2);
+    if (o == 0)
+        return (distSq(p0, *p2) >= distSq(p0, *p1)) ? -1 : 1;
+
+    return (o == 2) ? -1 : 1;
+}
+
+// Exibe o fecho convexo de um conjunto de n pontos
+void convexHull(Point points[], int n)
+{
+    // Acha o ponto mais baixo
+    int ymin = points[0].y, min = 0;
+    for (int i = 1; i < n; i++)
+    {
+        int y = points[i].y;
+
+        // Pega o ponto mais baixo ou escolhe o
+        // ponto mais à esquerda em caso de empate
+        if ((y < ymin) || (ymin == y &&
+                           points[i].x < points[min].x))
+            ymin = points[i].y, min = i;
+    }
+
+    // Põe o ponto mais baixo na primeira posição
+    swap(&points[0], &points[min]);
     
-    Point points[100000];
+    // Ordena os n-1 pontos com relação ao primeiro ponto
+    // o ponto p1 vem antes do p2 na saída da ordenação se p2
+    // tiver maior ângulo polar (na direção anti-horária) que p1
+    p0 = points[0];
+    qsort(&points[1], n - 1, sizeof(Point), compare);
+
+    // Se dois ou mais pontos fizerem o mesmo ângulo com p0
+    // remove todos os pontos menos o mais distante de p0
+    // Lembrar que, na ordenação acima, o critério escolhido
+    // foi o de manter o ponto mais distante no final quando
+    // mais de um ponto tiver o mesmo ângulo
+    int m = 1; // Initialize size of modified array
+    for (int i = 1; i < n; i++)
+    {
+        // Continua removendo i enquanto o ângulo de i e i+1 for o mesmo
+        // com relação à p0 
+        while (i < n - 1 && orientation(p0, points[i],
+                                        points[i + 1]) == 0)
+            i++;
+
+        points[m] = points[i];
+        m++; // Atualiza o tamanho do array modificado
+    }
+
+    // Se o array de pontos modificado tiver menos de 3 pontos,
+    // não existe a possibilidade de um fecho convexo 
+    if (m < 3) {
+        printf("There is no convex hull possible.\n");
+        return;
+    }
+        
+    // Cria uma stack vazia e dá push nos três primeiros pontos
+    struct Stack *stack = createStack(100);
+    push(stack, points[0]);
+    push(stack, points[1]);
+    push(stack, points[2]);
+
+    // Processa os restantes n-3 pontos
+    for (int i = 3; i < m; i++)
+    {   
+        // Continua removendo de top enquanto o ângulo formado pelos
+        // pontos next-top-top, top e points[i]  fizerem um turno não à esquerda
+        while (orientation(nextToTop(stack), top(stack), points[i]) != 2)
+            pop(stack);
+        push(stack, points[i]);
+    }
+
+    // Agora a stack tem os pontos de saída, exibe o conteúdo da stack
+    while (!isEmpty(stack))
+    {
+        Point p = top(stack);
+        printf("(%.2f, %.2f)\n", p.x, p.y);
+        pop(stack);
+    }
+}
+
+int main()
+{   
+    // Geeks for geeks
+    // Point points[] = {{0, 3}, {1, 1}, {2, 2}, {4, 4},
+    //                   {0, 0}, {1, 2}, {3, 1}, {3, 3}};
+
+    // Hacker rank
+    // Point points[] = { {732, 590}, {415, 360}, {276, 276}, {229, 544},{299, 95}};
+
+    // Code Golf
+    Point points[] = {{1, 1}, {2, 2}, {3, 3}, {1, 3}};
+    /* Point points[]  = {{4.4, 14}, {6.7, 15.25}, {6.9, 12.8}, {2.1, 11.1}, {9.5, 14.9}, 
+                        {13.2, 11.9}, {10.3, 12.3}, {6.8, 9.5}, {3.3, 7.7}, {0.6, 5.1}, {5.3, 2.4}, 
+                        {8.45, 4.7}, {11.5, 9.6}, {13.8, 7.3}, {12.9, 3.1}, {11, 1.1}}; */
+    
+    // // Geeks for Geeks Practice
+    //Point points[] = {{1,2}, {3,1}, {5,6}};
+    //Point points[] = {{1,2}, {4,4}, {5,1}};
+
+    // My custom input
+    /* Point points[100000];
     int i;
-    for (i =0; i < 100000; i++) {
+    for (i = 0; i < 100000; i++)
+    {
         Point p;
-        if (i == 0) {
+        if (i == 0)
+        {
             p.x = 0;
             p.y = 0;
             points[i] = p;
-        } else {
+        }
+        else
+        {
             p.x = i;
             p.y = i + 1;
             points[i] = p;
         }
-        printf("x: %d, y: %d\n", p.x, p.y);
-    }
+        printf("x: %.2f, y: %.2f\n", p.x, p.y);
+    } */
 
-    int n = sizeof(points)/sizeof(points[0]); 
-    convexHull(points, n); 
-    return 0; 
-} 
-
-// Driver program to test above functions 
+    int n = sizeof(points) / sizeof(points[0]);
+    convexHull(points, n);
+    return 0;
+}
