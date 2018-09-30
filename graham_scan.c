@@ -189,7 +189,7 @@ void convexHull(Point points[], int n)
     }
 
     // Agora a stack tem os pontos de saída, exibe o conteúdo da stack
-    printf("\nOutput\n");
+    printf("Output:\n");
     while (!isEmpty(stack))
     {
         Point p = top(stack);
@@ -198,36 +198,31 @@ void convexHull(Point points[], int n)
     }
 }
 
-int main()
-{   
-    // Geeks for geeks
-    // Point points[] = {{0, 3}, {1, 1}, {2, 2}, {4, 4},
-    //                   {0, 0}, {1, 2}, {3, 1}, {3, 3}};
-
-    // Hacker rank
-    // Point points[] = { {732, 590}, {415, 360}, {276, 276}, {229, 544},{299, 95}};
-
-    // Code Golf
-    //Point points[] = {{1, 1}, {2, 2}, {3, 3}, {1, 3}};
-    /* Point points[]  = {{4.4, 14}, {6.7, 15.25}, {6.9, 12.8}, {2.1, 11.1}, {9.5, 14.9}, 
-                        {13.2, 11.9}, {10.3, 12.3}, {6.8, 9.5}, {3.3, 7.7}, {0.6, 5.1}, {5.3, 2.4}, 
-                        {8.45, 4.7}, {11.5, 9.6}, {13.8, 7.3}, {12.9, 3.1}, {11, 1.1}}; */
-    
-    int n, i;
-    scanf("%d", &n);
-
-    Point points[n];
-
-    int x, y;
-    for (i = 0; i < n; i++) {
-        scanf("%d %d", &x, &y);
+// Lê pontos do arquivo
+void readPointsFromFile(FILE *fp, Point points[], int numOfPoints) {
+    int i;
+    for (int i = 0; i < numOfPoints; i++) {
         Point p;
-        p.x = x;
-        p.y = y;
+        fscanf(fp, "%f", &p.x);
+        fscanf(fp, "%f", &p.y);
         points[i] = p;
     }
+}
 
-    convexHull(points, n);
+int main(int argc, char *argv[])
+{   
+    int numOfPoints; // Número de pontos
+
+    FILE *fp;
+    fp = fopen(argv[1], "r");
+    fscanf(fp, "%d", &numOfPoints); // Lê o número de pontos do aquivo
+    
+    Point points[numOfPoints]; // Define o array de pontos a ser analizado
+    readPointsFromFile(fp, points, numOfPoints);
+    
+    fclose(fp);
+
+    convexHull(points, numOfPoints);
 
     return 0;
 }
