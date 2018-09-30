@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <limits.h>
 
+#define MAX 3000
+
 struct point
 {
     float x, y;
@@ -170,7 +172,7 @@ void convexHull(Point points[], int n)
     }
         
     // Cria uma stack vazia e dá push nos três primeiros pontos
-    struct Stack *stack = createStack(100);
+    struct Stack *stack = createStack(MAX);
     push(stack, points[0]);
     push(stack, points[1]);
     push(stack, points[2]);
@@ -186,6 +188,7 @@ void convexHull(Point points[], int n)
     }
 
     // Agora a stack tem os pontos de saída, exibe o conteúdo da stack
+    printf("\nOutput\n");
     while (!isEmpty(stack))
     {
         Point p = top(stack);
@@ -204,7 +207,7 @@ int main()
     // Point points[] = { {732, 590}, {415, 360}, {276, 276}, {229, 544},{299, 95}};
 
     // Code Golf
-    Point points[] = {{1, 1}, {2, 2}, {3, 3}, {1, 3}};
+    //Point points[] = {{1, 1}, {2, 2}, {3, 3}, {1, 3}};
     /* Point points[]  = {{4.4, 14}, {6.7, 15.25}, {6.9, 12.8}, {2.1, 11.1}, {9.5, 14.9}, 
                         {13.2, 11.9}, {10.3, 12.3}, {6.8, 9.5}, {3.3, 7.7}, {0.6, 5.1}, {5.3, 2.4}, 
                         {8.45, 4.7}, {11.5, 9.6}, {13.8, 7.3}, {12.9, 3.1}, {11, 1.1}}; */
@@ -234,7 +237,25 @@ int main()
         printf("x: %.2f, y: %.2f\n", p.x, p.y);
     } */
 
-    int n = sizeof(points) / sizeof(points[0]);
-    convexHull(points, n);
+    int i, numberOfPoints;
+    float x, y;
+
+    printf("Number of points: ");
+    scanf("%d", &numberOfPoints);
+
+    Point points[numberOfPoints];
+
+    printf("\nInput\n");
+    for (i = 0; i < numberOfPoints; i++) {
+        printf(": ");
+        scanf("%f %f", &x, &y);
+        Point p;
+        p.x = x;
+        p.y = y;
+        points[i] = p; 
+    }
+
+    //int n = sizeof(points) / sizeof(points[0]);
+    convexHull(points, numberOfPoints);
     return 0;
 }
