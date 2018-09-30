@@ -6,6 +6,8 @@
 
 #define MAX 10000
 
+void nonExistentFileError();
+
 struct point
 {
     float x, y;
@@ -209,13 +211,17 @@ void readPointsFromFile(FILE *fp, Point points[], int numOfPoints) {
     }
 }
 
-int main(int argc, char *argv[])
-{   
+void startGrahamScan(char *inputFileName) {
     int numOfPoints; // Número de pontos
-
     FILE *fp;
-    fp = fopen(argv[1], "r");
-    fscanf(fp, "%d", &numOfPoints); // Lê o número de pontos do aquivo
+    fp = fopen(inputFileName, "r");
+
+    if (fp == NULL) {
+        nonExistentFileError();
+        return;
+    }
+
+    fscanf(fp, "%d", &numOfPoints); // Lê o número de pontos do aquivo    
     
     Point points[numOfPoints]; // Define o array de pontos a ser analizado
     readPointsFromFile(fp, points, numOfPoints);
@@ -223,6 +229,26 @@ int main(int argc, char *argv[])
     fclose(fp);
 
     convexHull(points, numOfPoints);
+}
+
+void nonExistentFileError() {
+    printf("Erro ao tentar ler arquivo!\n\n"
+        "Arquivo com o nome incorreto ou nao existente.\n");
+}
+
+void invalidInputError() {
+    printf(
+        "A entrada deve conter apenas o nome do arquivo a ser lido.\n"
+        "Os Arquivos a serem lidos se encontram na pasta /inputs\n");
+}
+
+int main(int argc, char *argv[])
+{   
+    if (argc != 2) {
+        invalidInputError();
+    } else {
+        startGrahamScan(argv[1]);
+    }
 
     return 0;
 }
