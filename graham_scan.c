@@ -8,25 +8,9 @@
 
 struct point
 {
-    long double x, y;
+    float x, y;
 };
 typedef struct point Point;
-
-long double distBetweenTwoPoints(Point p1, Point p2) {
-    long double result = sqrt(pow(abs(p1.x - p2.x), 2) + pow(abs(p1.y - p2.y), 2));
-    return result;
-}
-
-long double perimeterOfGivenPoints(Point points[], int n) {
-    long double result = 0;
-    int i;
-    Point reference = points[0];
-    for (i = 0; i < n - 1; i++) {
-        result += distBetweenTwoPoints(points[i], points[i+1]);
-    }
-    result += distBetweenTwoPoints(points[n-1], reference);
-    return result; 
-}
 
 // Um ponto global para ordenar pontos com referência ao primeiro ponto usado na função compare do qsort()
 Point p0;
@@ -203,23 +187,15 @@ void convexHull(Point points[], int n)
             pop(stack);
         push(stack, points[i]);
     }
-    
-    int pointsLeft = stack->top + 1;
-    Point results[pointsLeft];
-    int index = 0;
 
     // Agora a stack tem os pontos de saída, exibe o conteúdo da stack
     printf("\nOutput\n");
     while (!isEmpty(stack))
     {
         Point p = top(stack);
-        results[index++] = p;
-        //printf("(%.2lf, %.2lf)\n", p.x, p.y);
+        printf("(%.2f, %.2f)\n", p.x, p.y);
         pop(stack);
     }
-
-    long double output = perimeterOfGivenPoints(results, pointsLeft);
-    printf("%.1Lf\n", output);
 }
 
 int main()
