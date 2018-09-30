@@ -1,15 +1,32 @@
 // C program for array implementation of stack
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <limits.h>
 
-#define MAX 3000
+#define MAX 10000
 
 struct point
 {
-    float x, y;
+    long double x, y;
 };
 typedef struct point Point;
+
+long double distBetweenTwoPoints(Point p1, Point p2) {
+    long double result = sqrt(pow(abs(p1.x - p2.x), 2) + pow(abs(p1.y - p2.y), 2));
+    return result;
+}
+
+long double perimeterOfGivenPoints(Point points[], int n) {
+    long double result = 0;
+    int i;
+    Point reference = points[0];
+    for (i = 0; i < n - 1; i++) {
+        result += distBetweenTwoPoints(points[i], points[i+1]);
+    }
+    result += distBetweenTwoPoints(points[n-1], reference);
+    return result; 
+}
 
 // Um ponto global para ordenar pontos com referência ao primeiro ponto usado na função compare do qsort()
 Point p0;
@@ -186,15 +203,23 @@ void convexHull(Point points[], int n)
             pop(stack);
         push(stack, points[i]);
     }
+    
+    int pointsLeft = stack->top + 1;
+    Point results[pointsLeft];
+    int index = 0;
 
     // Agora a stack tem os pontos de saída, exibe o conteúdo da stack
     printf("\nOutput\n");
     while (!isEmpty(stack))
     {
         Point p = top(stack);
-        printf("(%.2f, %.2f)\n", p.x, p.y);
+        results[index++] = p;
+        //printf("(%.2lf, %.2lf)\n", p.x, p.y);
         pop(stack);
     }
+
+    long double output = perimeterOfGivenPoints(results, pointsLeft);
+    printf("%.1Lf\n", output);
 }
 
 int main()
@@ -212,50 +237,21 @@ int main()
                         {13.2, 11.9}, {10.3, 12.3}, {6.8, 9.5}, {3.3, 7.7}, {0.6, 5.1}, {5.3, 2.4}, 
                         {8.45, 4.7}, {11.5, 9.6}, {13.8, 7.3}, {12.9, 3.1}, {11, 1.1}}; */
     
-    // // Geeks for Geeks Practice
-    //Point points[] = {{1,2}, {3,1}, {5,6}};
-    //Point points[] = {{1,2}, {4,4}, {5,1}};
+    int n, i;
+    scanf("%d", &n);
 
-    // My custom input
-    /* Point points[100000];
-    int i;
-    for (i = 0; i < 100000; i++)
-    {
-        Point p;
-        if (i == 0)
-        {
-            p.x = 0;
-            p.y = 0;
-            points[i] = p;
-        }
-        else
-        {
-            p.x = i;
-            p.y = i + 1;
-            points[i] = p;
-        }
-        printf("x: %.2f, y: %.2f\n", p.x, p.y);
-    } */
+    Point points[n];
 
-    int i, numberOfPoints;
-    float x, y;
-
-    printf("Number of points: ");
-    scanf("%d", &numberOfPoints);
-
-    Point points[numberOfPoints];
-
-    printf("\nInput\n");
-    for (i = 0; i < numberOfPoints; i++) {
-        printf(": ");
-        scanf("%f %f", &x, &y);
+    int x, y;
+    for (i = 0; i < n; i++) {
+        scanf("%d %d", &x, &y);
         Point p;
         p.x = x;
         p.y = y;
-        points[i] = p; 
+        points[i] = p;
     }
 
-    //int n = sizeof(points) / sizeof(points[0]);
-    convexHull(points, numberOfPoints);
+    convexHull(points, n);
+
     return 0;
 }
