@@ -1,83 +1,9 @@
-// C program for array implementation of stack
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <limits.h>
+#include "graham_scan.h"
 
 #define MAX 10000
 
-void nonExistentFileError();
-
-struct point
-{
-    float x, y;
-};
-typedef struct point Point;
-
 // Um ponto global para ordenar pontos com referência ao primeiro ponto usado na função compare do qsort()
 Point p0;
-
-// Uma struct para representar a stack
-struct Stack
-{
-    int top;
-    unsigned capacity;
-    Point *array;
-};
-typedef struct Stack Stack;
-
-// Função para criar uma stack dado um tamanho. Inicializa-se com uma stack de tamanho 0
-struct Stack *createStack(unsigned capacity)
-{
-    struct Stack *stack = (struct Stack *)malloc(sizeof(struct Stack));
-    stack->capacity = capacity;
-    stack->top = -1;
-    stack->array = (Point *)malloc(stack->capacity * sizeof(int));
-    return stack;
-}
-
-// Stack está cheia quando top for igual ao último index
-int isFull(struct Stack *stack)
-{
-    return stack->top == stack->capacity - 1;
-}
-
-// Stack está vazia quando top for igual a -1
-int isEmpty(struct Stack *stack)
-{
-    return stack->top == -1;
-}
-
-// Função para adicionar um item à stack. Incrementa top em 1
-void push(struct Stack *stack, Point item)
-{
-    if (isFull(stack))
-        return;
-    stack->array[++stack->top] = item;
-}
-
-// Função para remover um item da stack. Decrementa top em 1
-Point pop(struct Stack *stack)
-{
-    if (!isEmpty(stack))
-        return stack->array[stack->top--];
-}
-
-// Função para pegar o elemento do top da stack
-Point top(struct Stack *stack)
-{
-    if (!isEmpty(stack))
-        return stack->array[stack->top];
-}
-
-Point nextToTop(Stack *S)
-{
-    Point p = top(S);
-    pop(S);
-    Point res = top(S);
-    push(S, p);
-    return res;
-}
 
 // Função para realizar o swap entre dois pontos
 int swap(Point *p1, Point *p2)
@@ -240,15 +166,4 @@ void invalidInputError() {
     printf(
         "A entrada deve conter apenas o nome do arquivo a ser lido.\n"
         "Os Arquivos a serem lidos se encontram na pasta /inputs\n");
-}
-
-int main(int argc, char *argv[])
-{   
-    if (argc != 2) {
-        invalidInputError();
-    } else {
-        startGrahamScan(argv[1]);
-    }
-
-    return 0;
 }
