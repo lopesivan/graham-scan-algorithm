@@ -14,7 +14,5 @@ int compare(const void *vp1, const void *vp2);
 void convexHull(Point points[], int n);
 void readPointsFromFile(FILE *fp, Point points[], int numOfPoints);
 void startGrahamScan(char *inputFileName);
-void nonExistentFileError();
-void invalidInputError();
 
 #endif
