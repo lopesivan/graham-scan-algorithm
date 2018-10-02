@@ -1,6 +1,6 @@
 #include "graham_scan.h"
 #include "error.h"
-#define MAX 10000 // Define o tamanho máximo da stack
+#define MAX 10000
 
 // Um ponto global para ordenar pontos com referência ao primeiro ponto usado na função compare do qsort()
 Point p0;
@@ -141,3 +141,4 @@ void startGrahamScan(char *inputFileName) {
 
     convexHull(points, numOfPoints);
 }
+
