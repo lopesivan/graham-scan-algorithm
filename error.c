@@ -1,3 +1,19 @@
+/*  
+ * file : error.h* 
+ * Entrada: 
+ * Saida:   
+ * Plataforma Alvo : Raspberry Pi
+ * Compilador : GCC
+ * IDE :  Visual Studio Code 
+ * O presente algoritmo Graham Scan foi implementado para solucionar o probelma do fecho convexo, um problema da Geometria Computacional usado em Processamento de Imagens, Reconhecimento de formas etc como trabalho na cadeira de Sistemas embarcados do CURSO DE ENGENHARIA DE COMPUTACAO DO IFCE CAMPUS FORTALEZA sob a orientacao do PROFESSOR ELIAS TEODORO.
+ *  Authors : Jessica Lewinter e Thalys Viana
+ *  Copyright (C) 2018 Jessica Lewinter <jessicalewinter@gmail.com>
+ *  Copyright (C) 2018 Thalys Viana  <thalysvianaguiar@gmail.com> * 
+ *  Data de Atualizacaoo : 01 de outubro de 2018
+ */
+
+
+
 #include "error.h"
 #include <stdio.h>
 
