@@ -1,3 +1,18 @@
+/*  
+ * file : point.c
+ *     
+ * Plataforma Alvo : Raspberry Pi
+ * Compilador : GCC
+ * IDE :  VSCode(editor de texto)
+ *  
+ * Funcoes que sao usadas pela funcao convexHull para calcular o fecho convexo
+ * 
+ *  Authors : Jessica Lewinter e Thalys Viana
+ *  Copyright (C) 2018 Jessica Lewinter <jessicalewinter@gmail.com>
+ *  Copyright (C) 2018 Thalys Viana  <thalysvianaguiar@gmail.com>
+ *  Data de Atualizacao : 01 de outubro de 2018
+ */
+
 #include "point.h"
 #include "graham_scan.h"
 

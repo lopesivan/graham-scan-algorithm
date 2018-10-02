@@ -1,3 +1,19 @@
+/*  
+ * file : graham_scan.c
+ * 
+ *     
+ * Plataforma Alvo : Raspberry Pi
+ * Compilador : GCC
+ * IDE :  VSCode(editor de texto)
+ *  
+ * Funcoes que calculam o fecho convexo dado um conjunto de pontos e funcao que le arquivos
+ * 
+ *  Authors : Jessica Lewinter e Thalys Viana
+ *  Copyright (C) 2018 Jessica Lewinter <jessicalewinter@gmail.com>
+ *  Copyright (C) 2018 Thalys Viana  <thalysvianaguiar@gmail.com>
+ *  Data de Atualizacao : 01 de outubro de 2018
+ */
+
 #include "graham_scan.h"
 #include "error.h"
 #define MAX 10000
