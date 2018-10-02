@@ -10,8 +10,8 @@ Point p0;
  * Entrada : points -> array de pontos
  *           n -> número de pontos
  * Retorno : Nada
- * Saída   : Exibe o pontos que formam o fecho convexo. Caso não existe, exibe uma mensagem
- *           informando que não é possível formar um fecho com esses pontos
+ * Saída   : Exibe os pontos que formam o fecho convexo. Caso não existam, exibe uma mensagem
+ *           informando que não é possível formar um fecho com os pontos passados
  * Variáveis Locais: ymin, min, m, i, stack, p
  * Variáveis Globais Usadas : p0
  * Variáveis Globais Alteradas : p0
