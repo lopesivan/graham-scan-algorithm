@@ -5,6 +5,18 @@
 // Um ponto global para ordenar pontos com referência ao primeiro ponto usado na função compare do qsort()
 Point p0;
 
+/* Função: Calcula o fecho convexo dado um conjunto de pontos de um plano 2D 
+ * 
+ * Entrada : points -> array de pontos
+ *           n -> número de pontos
+ * Retorno : Nada
+ * Saída   : Exibe o pontos que formam o fecho convexo. Caso não existe, exibe uma mensagem
+ *           informando que não é possível formar um fecho com esses pontos
+ * Variáveis Locais: ymin, min, m, i, stack, p
+ * Variáveis Globais Usadas : p0
+ * Variáveis Globais Alteradas : p0
+ */
+
 // Exibe o fecho convexo de um conjunto de n pontos
 void convexHull(Point points[], int n)
 {
@@ -81,7 +93,17 @@ void convexHull(Point points[], int n)
     }
 }
 
-// Lê pontos do arquivo
+/* Função: Lê um conjunto de pontos de um arquivo
+ * 
+ * Entrada : fp -> ponteiro do tipo FILE para realizar as operação com arquivos
+ *           points -> array de pontos
+ *           numOfPoints -> número de pontos a serem lidos
+ * Retorno : Nada
+ * Saída   : Nada
+ * Variáveis Locais: p,i
+ * Variáveis Globais Usadas : Nenhuma
+ * Variáveis Globais Alteradas : Nenhuma
+ */
 void readPointsFromFile(FILE *fp, Point points[], int numOfPoints) {
     int i;
     for (int i = 0; i < numOfPoints; i++) {
@@ -92,7 +114,14 @@ void readPointsFromFile(FILE *fp, Point points[], int numOfPoints) {
     }
 }
 
-// Inicializa o algoritmo Graham Scan após leitura das entradas
+/* Função: Inicializa a execução do algoritmo de Graham Scan após leitura das entradas do arquivo
+ * Entrada : inputFileName -> nome do arquivo de entrada 
+ * Retorno : Nada
+ * Saída   : Nada
+ * Variáveis Locais: numOfPoints, fp, points
+ * Variáveis Globais Usadas : Nenhuma
+ * Variáveis Globais Alteradas : Nenhuma
+ */
 void startGrahamScan(char *inputFileName) {
     int numOfPoints; // Número de pontos
     FILE *fp;
@@ -106,7 +135,7 @@ void startGrahamScan(char *inputFileName) {
     fscanf(fp, "%d", &numOfPoints); // Lê o número de pontos do aquivo    
     
     Point points[numOfPoints]; // Define o array de pontos a ser analizado
-    readPointsFromFile(fp, points, numOfPoints);
+    readPointsFromFile(fp, points, numOfPoints); 
     
     fclose(fp);
 
