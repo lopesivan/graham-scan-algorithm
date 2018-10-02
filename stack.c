@@ -1,3 +1,21 @@
+/*  
+ * file : stack.c
+ * 
+ *     
+ * Plataforma Alvo : Raspberry Pi
+ * Compilador : GCC
+ * IDE :  VSCode(editor de texto)
+ *  
+ * Funcoes relacionadas a Stack, criacao, verifica se esta cheia, se esta vazia, push, pop,
+ * verifica se está no topo e o proximo elemento do topo 
+ * 
+ *  Authors : Jessica Lewinter e Thalys Viana
+ *  Copyright (C) 2018 Jessica Lewinter <jessicalewinter@gmail.com>
+ *  Copyright (C) 2018 Thalys Viana  <thalysvianaguiar@gmail.com>
+ *  Data de Atualizacao : 01 de outubro de 2018
+ */
+
+
 #include "stack.h"
 
 /* Função: Função para criar uma stack dado um tamanho. Inicializa-se com uma stack de tamanho 0
