@@ -2,26 +2,15 @@
 #include "graham_scan.h"
 
 /*
-
  * Função  : Troca a posição de dois pontos entre si dados com entrada
-
- * Entrada : Tipo Point -> Uma struct do tipo Point que possui como variáveis os float x, y representando as coordenadas do ponto
-
- * Retorno : NADA, OBS:(altera a posição de dois pontos entre si)
-
- * Saída   : NADA 
-
- 
-
+ * 
+ * Entrada : p1, p2 -> pontos no plano 2D
+ * Retorno : Nada, OBS:(altera a posição de dois pontos entre si)
+ * Saída   : Nada
  * Variáveis Locais: temp(variavel auxiliar)
-
- * Variáveis Globais Usadas : NENHUMA
-
- * Variáveis Globais Alteradas : NENHUMA
-
+ * Variáveis Globais Usadas : Nenhuma
+ * Variáveis Globais Alteradas : Nenhuma
  */
-
-
 
 int swap(Point *p1, Point *p2)
 {
@@ -31,25 +20,15 @@ int swap(Point *p1, Point *p2)
 }
 
 /*
-
  * Função  : Calcula o quadrado da distância entre dois pontos p1 e p2
-
- * Entrada : Tipo Point -> Uma struct do tipo Point que possui como variáveis os float x, y representando as coordenadas do ponto
-
+ * 
+ * Entrada : p1, p2 -> pontos no plano 2D
  * Retorno : Quadrado da distância entre dois pontos dado como entrada
-
- * Saída   : NADA 
-
- 
-
- * Variáveis Locais: NENHUMA
-
- * Variáveis Globais Usadas : NENHUMA
-
- * Variáveis Globais Alteradas : NENHUMA
-
+ * Saída   : Nada
+ * Variáveis Locais: Nenhuma
+ * Variáveis Globais Usadas : Nenhuma
+ * Variáveis Globais Alteradas : Nenhuma
  */
-
 
 int distSq(Point p1, Point p2)
 {
@@ -57,26 +36,19 @@ int distSq(Point p1, Point p2)
            (p1.y - p2.y) * (p1.y - p2.y); //retorna o quadrado da distância entre os pontos
 }
 /*
-
- * Função  : Função usada para achar a orientação do grupo de três pontos (p, q, r) calcula o coeficiente angular entre os pontos, para não deixar a função complexa, não calcula os ângulos polares pois com a orientação é possível saber quais pontos irá formar o fecho convexo
-
- * Entrada : Tipo Point -> Uma struct do tipo Point que possui como variáveis os float x, y representando as coordenadas do ponto
-
- * Retorno : A função retornar os seguintes valores:
+ * Função  : Função usada para achar a orientação do grupo de três pontos (p, q, r) calcula o 
+ * coeficiente angular entre os pontos, para não deixar a função complexa, não calcula os ângulos 
+ * polares pois com a orientação é possível saber quais pontos irá formar o fecho convexo
+ * 
+ * Entrada : p, q, r -> pontos no plano 2D
+ * Retorno : A função retorna os seguintes valores:
                 0 --> p, q e r são colineares (colinear)
                 1 --> Sentido horário (clockwise)
                 2 --> Sentido anti-horário (counterclockwise)
-
- * Saída   : NADA 
-
- 
-
- * Variáveis Locais: int val
-
- * Variáveis Globais Usadas : NENHUMA
-
- * Variáveis Globais Alteradas : NENHUMA
-
+ * Saída   : Nada 
+ * Variáveis Locais: val
+ * Variáveis Globais Usadas : Nenhuma
+ * Variáveis Globais Alteradas : Nenhuma
  */
 
 int orientation(Point p, Point q, Point r)
@@ -90,28 +62,16 @@ int orientation(Point p, Point q, Point r)
 }
 
 /*
-
  * Função  : Ordena os pontos com base no seu ângulo polar(no caso da nossa função o coeficente angular)
-
- * Entrada : Ponteiros void *vp1 e void *vp2
-
+ * 
+ * Entrada : vp1, vp2 -> pontos no plano 2D
  * Retorno : Retorna uma função usada pela função de biblioteca qsort() para ordenar os pontos com relação ao primeiro ponto
-
- * Saída   : NADA 
-
- 
-
- * Variáveis Locais: int o
-
- * Variáveis Globais Usadas : Point p0
-
- * Variáveis Globais Alteradas : NENHUMA
-
+ * Saída   : Nada 
+ * Variáveis Locais: o -> orientação do segmento de reta
+ * Variáveis Globais Usadas : p0 -> ponto de referência no plano 2D
+ * Variáveis Globais Alteradas : Nenhuma
  */
 
-
-// 
-// 
 int compare(const void *vp1, const void *vp2)
 {
     Point *p1 = (Point *)vp1; // Cria um ponteiro p1 e seta ao valor de vp1
