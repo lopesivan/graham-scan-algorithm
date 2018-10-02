@@ -2,6 +2,18 @@
 #include "error.h"
 #define MAX 10000
 
+/*Função: Calcula o fecho convexo dado um conjunto de pontos de um plano 2D 
+ * 
+ * Entrada : points -> array de pontos
+ *           n -> número de pontos
+ * Retorno : NADA
+ * Saída   : Exibe o pontos que formam o fecho convexo. Caso não existe, exibe uma mensagem
+ *           informando que não é possível formar um fecho com esses pontos
+ * Variáveis Locais: ymin, min, m, i, stack, p
+ * Variáveis Globais Usadas : p0
+ * Variáveis Globais Alteradas : p0
+ */
+
 // Um ponto global para ordenar pontos com referência ao primeiro ponto usado na função compare do qsort()
 Point p0;
 
