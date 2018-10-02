@@ -2,11 +2,11 @@
  * file : main.c 
  * 
  * 
- * Entrada: arquivo de texto (.txt) contendo os pontos a serem analizados
+ * Entrada: arquivo de texto (.txt) contendo os pontos do plano 2D a serem analizados
  * Saída: conjunto de pontos que formam um fecho convexo
  *  
  * Plataforma Alvo : Raspberry PI 3
- * Compilador : arm-gnueabi
+ * Compilador : GCC
  * Editor de texto :  VSCode
  * 
  * O presente algoritmo foi implementado para solucionar o problema do fecho convexo
@@ -33,7 +33,7 @@
  * chamada /inputs com alguns arquivos de texto com entradas já testadas
  * 
  * Um exemplo de execução do programa seria:
- * <executável> /inputs/<nome-do-arquivo> *              
+ * <executável> <caminho-do-arquivo-com-entradas>               
  * 
  * This file or program is a free software: you can redistribute it and/or
  * modify it under the terms of the GNU Affero General Public
