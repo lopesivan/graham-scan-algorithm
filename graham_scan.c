@@ -14,9 +14,14 @@
  *  Data de Atualizacao : 01 de outubro de 2018
  */
 
+#include <time.h>
 #include "graham_scan.h"
 #include "error.h"
 #define MAX 10000
+
+// Variáveis usadas para medir o tempo das funções
+clock_t start, end;
+double cpu_time_used;
 
 // Um ponto global para ordenar pontos com referência ao primeiro ponto usado na função compare do qsort()
 Point p0;
@@ -100,13 +105,13 @@ void convexHull(Point points[], int n)
     }
 
     // Agora a stack tem os pontos de saída, exibe o conteúdo da stack
-    printf("Output:\n");
-    while (!isEmpty(stack))
-    {
-        Point p = top(stack);
-        printf("(%.2f, %.2f)\n", p.x, p.y);
-        pop(stack);
-    }
+    // printf("Output:\n");
+    // while (!isEmpty(stack))
+    // {
+    //     Point p = top(stack);
+    //     printf("(%.2f, %.2f)\n", p.x, p.y);
+    //     pop(stack);
+    // }
 }
 
 /* Função: Lê um conjunto de pontos de um arquivo
@@ -155,6 +160,13 @@ void startGrahamScan(char *inputFileName) {
     
     fclose(fp);
 
-    convexHull(points, numOfPoints);
+    start = clock();
+    int i;
+    for (i = 0; i < 100; i++) {
+        convexHull(points, numOfPoints);
+    }
+    end = clock();
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC*100;
+    printf("Time elapsed: %lf\n\n", cpu_time_used);
 }
 
