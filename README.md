@@ -35,7 +35,7 @@ Convex Hull | Set 2 (Graham Scan)
  `<executável> <caminho-do-arquivo-com-entradas>`
 
 ##### Obs:
-O arquivo com as entradas deve conter n pares de pontos representando as coordenadas x e y no plano. Tais entradas devem estar separadas por espaços. E o primeiro parâmetro de entrada deve informa a quantidade de pontos a serem lidos.
+O arquivo com as entradas deve conter n pares de pontos representando as coordenadas x e y no plano. Tais entradas devem estar separadas por espaços. E o primeiro parâmetro de entrada deve informar a quantidade de pontos a serem lidos.
 
 ##### Exemplo de entrada:
 `4 1 1 2 2 3 3 1 3`
