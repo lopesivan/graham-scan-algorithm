@@ -12,12 +12,11 @@ O presente algoritmo foi implementado para solucionar o problema do fecho convex
 
 As seguintes fontes foram usadas como referência:
 
-Convex Hull
-<https://brilliant.org/wiki/convex-hull/>
-Convex Hull Algorithms
-<https://en.wikipedia.org/wiki/Convex_hull_algorithms>
-Convex Hull | Set 2 (Graham Scan)
-<https://www.geeksforgeeks.org/convex-hull-set-2-graham-scan/>
+[Convex Hull](https://brilliant.org/wiki/convex-hull/)
+
+[Convex Hull Algorithms](https://en.wikipedia.org/wiki/Convex_hull_algorithms)
+
+[Convex Hull | Set 2 (Graham Scan)](https://www.geeksforgeeks.org/convex-hull-set-2-graham-scan/)
 
 ### Exemplo de funcionamento do algoritmo
 ![Alt Text](https://ds055uzetaobb.cloudfront.net/image_optimizer/ea21a7ce6180f91fa4724e4c8fc7ae1a3949e671.gif)
